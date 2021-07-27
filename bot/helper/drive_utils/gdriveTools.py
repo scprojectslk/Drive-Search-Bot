@@ -17,7 +17,7 @@ LOGGER = logging.getLogger(__name__)
 logging.getLogger('googleapiclient.discovery').setLevel(logging.ERROR)
 
 SIZE_UNITS = ['B', 'KB', 'MB', 'GB', 'TB', 'PB']
-TELEGRAPHLIMIT = 200
+TELEGRAPHLIMIT = 95
 
 class GoogleDriveHelper:
     def __init__(self, name=None, listener=None):
