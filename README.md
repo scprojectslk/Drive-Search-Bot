@@ -1,75 +1,17 @@
-```This is not my own repo.
-have forked this and added my credits.
-```
-
-
 # What is this repo about?
 This is a telegram bot writen in python for searching files in Drive.
 
-
-## Deploying on Heroku
-### Auto
-
-## before that add your groups ids in authorized_chats.txt file for getting it ready working for group
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?)
-
-
-
-## Deploying on Heroku manually
-
-- Install [Heroku cli](https://devcenter.heroku.com/articles/heroku-cli)
-- Login into your heroku account with command:
-```
-heroku login
-```
-- Create a new heroku app:
-```
-heroku create appname	
-```
-- Select This App in your Heroku-cli: 
-```
-heroku git:remote -a appname
-```
-- Change Dyno Stack to a Docker Container:
-```
-heroku stack:set container
-```
-- Add Private Credentials and Config Stuff:
-```
-git add -f credentials.json token.pickle config.env heroku.yml drive_folder
-```
-- Commit new changes:
-```
-git commit -m "Added Creds."
-```
-- Push Code to Heroku:
-```
-git push heroku master --force
-```
-- Restart Worker by these commands:
-```
-heroku ps:scale worker=0
-```
-```
-heroku ps:scale worker=1	 	
-```
-Heroku-Note: Doing authorizations ( /authorize command ) through telegram wont be permanent as heroku uses ephemeral filesystem. They will be reset on each dyno boot. As a workaround you can:
-- Make a file authorized_chats.txt and write the user names and chat_id of you want to authorize, each separated by new line
-- Then force add authorized_chats.txt to git and push it to heroku
-```
-git add authorized_chats.txt -f
-git commit -asm "Added hardcoded authorized_chats.txt"
-git push heroku heroku:master
-```
-
-
-### deploy on vps
+# How to deploy?
 
 - Clone this repo:
 ```
-git clone https://github.com/ayushteke/Drive-Search-Bot/
+git clone https://github.com/ayushteke/Drive-Search-Bot
 cd Drive-Search-Bot
 ```
+## YouTube Video 
+# watch this video for full instructions
+# [video](https://www.youtube.com/watch?v=8YGqioRf14g)
+
 
 ### Install requirements
 
@@ -99,26 +41,16 @@ Fill up rest of the fields. Meaning of each fields are discussed below:
 python3 telegraph_token.py
 ```
 
-## Upgrading.
-
-If you are coming from last version where recursive searching was not possible, you must run driveid.py again and delete all previous content, and this time you just have to add Drives (Teamdrive or 'root' for Main Drive). See the section below for more.
-
-
 ## Setting up drive_folder file
 
-- ~The bot is unable to search in sub-directories, but you can specify directories in which you wanna search.~
-- The bot can now search in sub-directories, so you just need to specify the teamdrives you want to use. To use main drive, you can enter 'root' in the drive id.
-- Add drive name(anything that u likes), drive id & index url(optional) corresponding to each id.
-- ~If you are adding a folder id and you wish to use index url, then add index url corresponding to that folder.~ Don't enter folder id now, only Teamdrive Id.
+- The bot is unable to search in sub-directories, but you can specify directories in which you wanna search.
+- Add drive/folder name(anything that u likes), drive id/folder id & index url(optional) corresponding to each id.
+- If you are adding a folder id and you wish to use index url, then add index url corresponding to that folder.
 
 - Run driveid.py and follow the screen.
 ```
 python3 driveid.py
 ```
-
-## Authorizing Chats
-
-- Add telegram id of chats that u wanna authorize into the authorized_chats.txt file.
 
 ## Getting Google OAuth API credential file
 
@@ -134,9 +66,69 @@ python3 driveid.py
 ```
 pip install google-api-python-client google-auth-httplib2 google-auth-oauthlib
 python3 generate_drive_token.py
-
 ```
 
+## Deploying on Heroku
+### Auto
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/devillD/Drive-Search-Bot.git)
+### Menual - Install [Heroku cli](https://devcenter.heroku.com/articles/heroku-cli)
+- Login into your heroku account with command:
+```
+heroku login
+```
+- Create a new heroku app:
+```
+heroku create appname	
+```
+- Select This App in your Heroku-cli: 
+```
+heroku git:remote -a appname
+```
+- Change Dyno Stack to a Docker Container:
+```
+heroku stack:set container
+```
+- Add Private Credentials and Config Stuff:
+```
+git add -f credentials.json token.pickle config.env heroku.yml
+```
+- Commit new changes:
+```
+git commit -m "Added Creds."
+```
+- Push Code to Heroku:
+```
+git push heroku master --force
+```
+- Restart Worker by these commands:
+```
+heroku ps:scale worker=0
+```
+```
+heroku ps:scale worker=1	 	
+```
+Heroku-Note: Doing authorizations ( /authorize command ) through telegram wont be permanent as heroku uses ephemeral filesystem. They will be reset on each dyno boot. As a workaround you can:
+- Make a file authorized_chats.txt and write the user names and chat_id of you want to authorize, each separated by new line
+- Then force add authorized_chats.txt to git and push it to heroku
+```
+git add authorized_chats.txt -f
+git commit -asm "Added hardcoded authorized_chats.txt"
+git push heroku heroku:master
+```
+
+## Deploying on Server
+- Start docker daemon (skip if already running):
+```
+sudo dockerd
+```
+- Build Docker image:
+```
+sudo docker build . -t search-bot
+```
+- Run the image:
+```
+sudo docker run search-bot
+```
 # Credits :
 
 - python-aria-mirror-bot - [lzzy12](https://github.com/lzzy12/python-aria-mirror-bot)
